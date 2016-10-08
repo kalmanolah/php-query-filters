@@ -72,7 +72,7 @@ $qb = $entityManager->createQueryBuilder()
     ->select('u')
     ->from('MyLibrary:User', 'u');
 
-// Get some filters from somewhere (generate your REST API GET params)
+// Get some filters from somewhere (generally your REST API GET params)
 // eg: GET /api/users?filter[]=foo,bar&filter[]=bar,baz
 $filters = [
     'profile.firstName,eq John',   // LEFT JOIN u.profile p, WHERE p.firstName = 'John'
@@ -123,15 +123,15 @@ $query = [
     '$and' => [],
 ];
 
-// Get some filters from somewhere (generate your REST API GET params)
+// Get some filters from somewhere (generally your REST API GET params)
 // eg: GET /api/users?filter[]=foo,bar&filter[]=bar,baz
 $filters = [
-    'profile.firstName,eq John',           // ['profile.firstName' => ['$eq' => 'John']]
-    'username,like adm',                   // ['username' => ['$regex' => /adm/i]]
-    'enabled,true',                        // ['enabled' => ['$eq' => true]]
-    'lastLogin,gte:dt 2015-03-03',         // ['lastLogin' => ['$gte' => ISODate('2015-03-03T00:00:00Z')]]
-    'id,ne:id 123412341234123412341234',   // ['id' => ['$ne' => ObjectId('123412341234')]]
-    'karma,lt:f 3.6',                      // ['karma' => ['$lt' => 3.6]]
+    'profile.firstName,eq John',            // ['profile.firstName' => ['$eq' => 'John']]
+    'username,like adm',                    // ['username' => ['$regex' => /adm/i]]
+    'enabled,true',                         // ['enabled' => ['$eq' => true]]
+    'lastLogin,gte:dt 2015-03-03',          // ['lastLogin' => ['$gte' => ISODate('2015-03-03T00:00:00Z')]]
+    'id,ne:id 123412341234123412341234',    // ['id' => ['$ne' => ObjectId('123412341234')]]
+    'karma,lt:f 3.6',                       // ['karma' => ['$lt' => 3.6]]
     'location,geo_near 4.4500,51.1333,300', // ['location' => ['$near' => ...]]
 ];
 
