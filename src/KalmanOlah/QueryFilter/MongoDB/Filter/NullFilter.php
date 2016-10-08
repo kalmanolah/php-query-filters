@@ -21,7 +21,7 @@ class NullFilter extends AbstractFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, string $field, $value)
+    public function filter(&$query, $field, $value)
     {
         $query['$and'][] = [
             $field => [

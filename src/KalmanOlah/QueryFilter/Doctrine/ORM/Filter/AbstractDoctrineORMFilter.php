@@ -3,6 +3,7 @@
 namespace KalmanOlah\QueryFilter\Doctrine\ORM\Filter;
 
 use KalmanOlah\QueryFilter\Filter\AbstractFilter;
+use KalmanOlah\QueryFilter\Exception\InvalidFilterException;
 
 /**
  * A base implementation of a Doctrine ORM filter,
@@ -30,12 +31,6 @@ abstract class AbstractDoctrineORMFilter extends AbstractFilter
         // Attempt to split the field into parts
         $parts = explode('.', $field);
 
-        // If we're not filtering on an association,
-        // just return the plain field
-        if (count($parts) <= 1) {
-            return $field;
-        }
-
         $entityManager = $query->getEntityManager();
         $metadataFactory = $entityManager->getMetadataFactory();
 
@@ -56,7 +51,7 @@ abstract class AbstractDoctrineORMFilter extends AbstractFilter
         foreach ($parts as $part) {
             // Ensure an association with the given name exists
             if (!$activeMetadata->hasAssociation($part)) {
-                throw new InvalidFilterException(sprintf('No association with the name "%s" exists for the class "%s"', $part, $metadata->getName()));
+                throw new InvalidFilterException(sprintf('No association with the name "%s" exists for the class "%s"', $part, $activeMetadata->getName()));
             }
 
             // Generate an alias for the join we're about to perform
@@ -65,15 +60,11 @@ abstract class AbstractDoctrineORMFilter extends AbstractFilter
             // to detect duplicate joins before they happen
             $alias = sprintf('%s__%s', $activeAlias, $part);
 
-            // If the alias is already taken, assume the join
-            // has been performed (by a previous filter)
-            // and skip the join
-            if (in_array($alias, $aliases)) {
-                continue;
+            // If the alias is not yet taken, perform the join
+            $aliases = $query->getAllAliases();
+            if (!in_array($alias, $aliases)) {
+                $query->leftJoin(sprintf('%s.%s', $activeAlias, $part), $alias);
             }
-
-            // Perform the actual join
-            $query->leftJoin(sprintf('%s.%s', $activeAlias, $part), $alias);
 
             // Set active alias and metadata for the next iteration
             $activeAlias = $alias;
@@ -88,14 +79,12 @@ abstract class AbstractDoctrineORMFilter extends AbstractFilter
     }
 
     /**
-     * Generate a parameter/placeholder name, taking the given
-     * field alias into account.
+     * Generate a parameter/placeholder name.
      *
-     * @param  string $field Field alias to use.
      * @return string
      */
-    protected function generateParameterName(string $field)
+    protected function generateParameterName()
     {
-        return sprintf('QF_%s', hash('crc32', $field));
+        return sprintf('QF_%s', hash('crc32', uniqid('', true).microtime(true)));
     }
 }

@@ -27,7 +27,7 @@ abstract class AbstractFilter implements FilterInterface
      * @param  mixed  $value  Value to filter on.
      * @return void
      */
-    abstract public function filter(&$query, string $field, $value);
+    abstract public function filter(&$query, $field, $value);
 
     /**
      * @var FilterSet

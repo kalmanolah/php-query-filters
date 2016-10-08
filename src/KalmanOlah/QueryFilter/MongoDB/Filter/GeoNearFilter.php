@@ -23,7 +23,7 @@ class GeoNearFilter extends AbstractFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, string $field, $value)
+    public function filter(&$query, $field, $value)
     {
        try {
             list($longitude, $latitude, $radius) = explode(',', $value);

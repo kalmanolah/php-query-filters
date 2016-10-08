@@ -21,7 +21,7 @@ class MongoIdTransformer extends AbstractTransformer
     /**
      * {@inheritDoc}
      */
-    public function transform(string $value)
+    public function transform($value)
     {
         $value = new \MongoDB\BSON\ObjectId($value);
 

@@ -19,9 +19,9 @@ class LessThanFilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, string $field, $value)
+    public function filter(&$query, $field, $value)
     {
-        $param = $this->generateParameterName($field);
+        $param = $this->generateParameterName();
         $field = $this->resolveFieldAlias($query, $field);
 
         $query

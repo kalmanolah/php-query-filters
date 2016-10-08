@@ -19,7 +19,7 @@ class FloatTransformer extends AbstractTransformer
     /**
      * {@inheritDoc}
      */
-    public function transform(string $value)
+    public function transform($value)
     {
         $value = floatval($value);
 

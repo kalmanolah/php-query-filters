@@ -21,7 +21,7 @@ class MongoDateTransformer extends AbstractTransformer
     /**
      * {@inheritDoc}
      */
-    public function transform(string $value)
+    public function transform($value)
     {
         $value = new \DateTime($value, new \DateTimeZone('UTC'));
         $value = new \MongoDB\BSON\UTCDateTime($value->format('U') * 1000);

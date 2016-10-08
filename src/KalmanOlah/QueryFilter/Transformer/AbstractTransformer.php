@@ -24,7 +24,7 @@ abstract class AbstractTransformer implements TransformerInterface
      * @param  string $value Value fo transform.
      * @return mixed
      */
-    abstract public function transform(string $value);
+    abstract public function transform($value);
 
     /**
      * @var FilterSet

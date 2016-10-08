@@ -110,7 +110,7 @@ class FilterSet
      * @param  string $filter Filter string to parse.
      * @return array<string,mixed>
      */
-    protected function parseFilter(string $filter)
+    protected function parseFilter($filter)
     {
         // Split the filter string into field and filterId parts
         list($field, $filterId) = explode(',', $filter, 2);
@@ -141,7 +141,7 @@ class FilterSet
      * @param  string $id ID of filter to get.
      * @return FilterInterface
      */
-    protected function getFilterById(string $id)
+    protected function getFilterById($id)
     {
         if (!isset($this->filters[$id])) {
             throw new InvalidFilterException(sprintf('The filter with ID "%s" coult not be found', $id));
@@ -156,7 +156,7 @@ class FilterSet
      * @param  string $id ID of transformer to get.
      * @return TransformerInterface
      */
-    protected function getTransformerById(string $id)
+    protected function getTransformerById($id)
     {
         if (!isset($this->transformers[$id])) {
             throw new InvalidFilterException(sprintf('The transformer with ID "%s" coult not be found', $id));

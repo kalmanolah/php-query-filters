@@ -19,7 +19,7 @@ class IntegerTransformer extends AbstractTransformer
     /**
      * {@inheritDoc}
      */
-    public function transform(string $value)
+    public function transform($value)
     {
         $value = intval($value);
 

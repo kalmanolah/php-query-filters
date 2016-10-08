@@ -28,7 +28,7 @@ interface FilterInterface
      * @param  mixed  $value  Value to filter on.
      * @return void
      */
-    public function filter(&$query, string $field, $value);
+    public function filter(&$query, $field, $value);
 
     /**
      * Set the filter set owning this transformer.

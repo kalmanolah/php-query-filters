@@ -21,7 +21,7 @@ class DateTimeTransformer extends AbstractTransformer
     /**
      * {@inheritDoc}
      */
-    public function transform(string $value)
+    public function transform($value)
     {
         $value = new \DateTime($value, new \DateTimeZone('UTC'));
         $value = $value->format('Y-m-d H:i:s');

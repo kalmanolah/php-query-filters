@@ -9,7 +9,7 @@ namespace KalmanOlah\QueryFilter\Doctrine\ORM\Filter;
  * @author Kalman Olah <hello+php-qf@kalmanolah.net>
  * @license MIT
  */
-class Equalsfilter extends AbstractDoctrineORMFilter
+class EqualsFilter extends AbstractDoctrineORMFilter
 {
     /**
      * {@inheritDoc}
@@ -19,9 +19,9 @@ class Equalsfilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, string $field, $value)
+    public function filter(&$query, $field, $value)
     {
-        $param = $this->generateParameterName($field);
+        $param = $this->generateParameterName();
         $field = $this->resolveFieldAlias($query, $field);
 
         $query

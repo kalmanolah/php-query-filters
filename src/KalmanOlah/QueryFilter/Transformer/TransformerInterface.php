@@ -25,7 +25,7 @@ interface TransformerInterface
      * @param  string $value Value fo transform.
      * @return mixed
      */
-    public function transform(string $value);
+    public function transform($value);
 
     /**
      * Set the filter set owning this transformer.
