@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./vendor/bin/phpunit -c ./tests --stop-on-failure

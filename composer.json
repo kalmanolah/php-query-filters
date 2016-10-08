@@ -1,0 +1,32 @@
+{
+    "name": "kalmanolah/php-query-filters",
+    "description": "Utilities for easing query filtering by arbitrary criteria.",
+    "homepage": "https://github.com/kalmanolah/php-query-filters",
+    "type": "library",
+    "require": {
+        "php": "^5.3.3 || ^7.0"
+    },
+    "suggest": {
+        "mongodb/mongodb": "Allows filtering of MongoDB queries (using arrays)",
+        "doctrine/orm": "Allows filtering of Doctrine ORM queries (using QueryBuilder)"
+    },
+    "autoload": {
+        "psr-4": {
+            "KalmanOlah\\": "src/KalmanOlah/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kalman Olah",
+            "email": "hello+php-qf@kalmanolah.net",
+            "homepage": "https://kalmanolah.net",
+            "role": "Developer"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^5.6",
+        "mongodb/mongodb": "^1.0.0",
+        "doctrine/orm": "^2.5"
+    }
+}
