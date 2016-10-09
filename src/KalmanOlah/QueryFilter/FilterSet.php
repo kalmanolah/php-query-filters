@@ -144,7 +144,7 @@ class FilterSet
     protected function getFilterById($id)
     {
         if (!isset($this->filters[$id])) {
-            throw new InvalidFilterException(sprintf('The filter with ID "%s" coult not be found', $id));
+            throw new InvalidFilterException(sprintf('The filter with ID "%s" could not be found', $id));
         }
 
         return $this->filters[$id];
@@ -159,7 +159,7 @@ class FilterSet
     protected function getTransformerById($id)
     {
         if (!isset($this->transformers[$id])) {
-            throw new InvalidFilterException(sprintf('The transformer with ID "%s" coult not be found', $id));
+            throw new InvalidFilterException(sprintf('The transformer with ID "%s" could not be found', $id));
         }
 
         return $this->transformers[$id];
