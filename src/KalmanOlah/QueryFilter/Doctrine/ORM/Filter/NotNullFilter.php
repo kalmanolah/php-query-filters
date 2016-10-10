@@ -19,7 +19,7 @@ class NotNullFilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, $field, $value)
+    public function filter(&$query, &$filters, $field, $value)
     {
         $field = $this->resolveFieldAlias($query, $field);
         $query->andWhere(sprintf('%s IS NOT NULL', $field));

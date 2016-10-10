@@ -19,7 +19,7 @@ class EqualsFilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, $field, $value)
+    public function filter(&$query, &$filters, $field, $value)
     {
         $param = $this->generateParameterName();
         $field = $this->resolveFieldAlias($query, $field);

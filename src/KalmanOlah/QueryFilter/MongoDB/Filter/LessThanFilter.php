@@ -21,7 +21,7 @@ class LessThanFilter extends AbstractFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, $field, $value)
+    public function filter(&$query, &$filters, $field, $value)
     {
         $query['$and'][] = [
             $field => [

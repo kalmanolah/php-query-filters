@@ -44,20 +44,50 @@ class FilterSet
     public function applyQueryFilters(&$query, array $filters)
     {
         $parsedFilters = $this->parseFilters($filters);
+        $this->applyParsedFilters($query, $parsedFilters);
+    }
 
-        foreach ($parsedFilters as $parsedFilter) {
-            $filter = $this->getFilterById($parsedFilter['filter']);
-            $field = $parsedFilter['field'];
-            $value = $parsedFilter['value'];
+    /**
+     * Attempt to apply the given parsed filters to the provided query.
+     *
+     * @param  mixed                 &$query         Query to filter.
+     * @param  array<array<string>>  &$parsedFilters Parsed filters.
+     * @return void
+     */
+    public function applyParsedFilters(&$query, &$parsedFilters)
+    {
+        foreach ($parsedFilters as $key => $parsedFilter) {
+            $parsedFilter = $parsedFilters[$key];
 
-            // If required, transform the value
-            if (isset($parsedFilter['transformer'])) {
-                $transformer = $this->getTransformerById($parsedFilter['transformer']);
-                $value = $transformer->transform($value);
+            if (!$parsedFilter) {
+                continue;
             }
 
-            $filter->filter($query, $field, $value);
+            $this->applyParsedFilter($query, $parsedFilters, $parsedFilter);
         }
+    }
+
+    /**
+     * Attempt to apply the given parsed filter to the provided query.
+     *
+     * @param  mixed                 &$query         Query to filter.
+     * @param  array<array<string>>  &$parsedFilters Parsed filters.
+     * @param  array<string>         $parsedFilter   Processed/parsed filter to apply.
+     * @return void
+     */
+    public function applyParsedFilter(&$query, &$parsedFilters, $parsedFilter)
+    {
+        $filter = $this->getFilterById($parsedFilter['filter']);
+        $field = $parsedFilter['field'];
+        $value = $parsedFilter['value'];
+
+        // If required, transform the value
+        if (isset($parsedFilter['transformer'])) {
+            $transformer = $this->getTransformerById($parsedFilter['transformer']);
+            $value = $transformer->transform($value);
+        }
+
+        $filter->filter($query, $parsedFilters, $field, $value);
     }
 
     /**
@@ -132,6 +162,7 @@ class FilterSet
             'value'       => $value,
             'transformer' => $transformerId,
             'field'       => $field,
+            'raw'         => $filter,
         ];
     }
 

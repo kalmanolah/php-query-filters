@@ -27,6 +27,7 @@ Currently supported are:
   * NULL/NOT NULL filters
   * LIKE filters (with $regex)
   * GEONEAR filters (point + radius)
+  * OR filters (with $or)
   * MongoId transformer
   * MongoDate transformer
 
@@ -112,6 +113,7 @@ $filterSet = (new FilterSet())
     ->registerFilter(new MongoDBFilter\NullFilter())
     ->registerFilter(new MongoDBFilter\NotNullFilter())
     ->registerFilter(new MongoDBFilter\GeoNearFilter())
+    ->registerFilter(new MongoDBFilter\OrFilter())
     // Register transformers
     ->registerTransformer(new Transformer\FloatTransformer())
     ->registerTransformer(new Transformer\IntegerTransformer())
@@ -126,6 +128,7 @@ $query = [
 // Get some filters from somewhere (generally your REST API GET params)
 // eg: GET /api/users?filter[]=foo,bar&filter[]=bar,baz
 $filters = [
+    '*,or 1,2,3',                           // Wrap filters with index 1, 2 and 3 in OR statement
     'profile.firstName,eq John',            // ['profile.firstName' => ['$eq' => 'John']]
     'username,like adm',                    // ['username' => ['$regex' => /adm/i]]
     'enabled,true',                         // ['enabled' => ['$eq' => true]]

@@ -96,6 +96,7 @@ class FilterSetTest extends \PHPUnit_Framework_TestCase
         $set->registerFilter(new MongoDBFilter\NullFilter());
         $set->registerFilter(new MongoDBFilter\NotNullFilter());
         $set->registerFilter(new MongoDBFilter\GeoNearFilter());
+        $set->registerFilter(new MongoDBFilter\OrFilter());
         $set->registerTransformer(new Transformer\FloatTransformer());
         $set->registerTransformer(new MongoDBTransformer\MongoIdTransformer());
         $set->registerTransformer(new MongoDBTransformer\MongoDateTransformer());
@@ -105,6 +106,7 @@ class FilterSetTest extends \PHPUnit_Framework_TestCase
         ];
 
         $filters = [
+            '*,or 1,2,3',                           // Wrap filters with index 1, 2 and 3 in OR statement
             'profile.firstName,eq John',            // ['profile.firstName' => ['$eq' => 'John']]
             'username,like adm',                    // ['username' => ['$regex' => /adm/i]]
             'enabled,true',                         // ['enabled' => ['$eq' => true]]

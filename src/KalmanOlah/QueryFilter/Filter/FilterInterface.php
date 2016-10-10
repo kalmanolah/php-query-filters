@@ -23,12 +23,13 @@ interface FilterInterface
      * Apply the filter to the given query with the given value
      * on the given field.
      *
-     * @param  mixed  &$query Query to filter.
-     * @param  string $field  Field to filter on.
-     * @param  mixed  $value  Value to filter on.
+     * @param  mixed  &$query   Query to filter.
+     * @param  array  &$filters Parsed filters to be applied.
+     * @param  string $field    Field to filter on.
+     * @param  mixed  $value    Value to filter on.
      * @return void
      */
-    public function filter(&$query, $field, $value);
+    public function filter(&$query, &$filters, $field, $value);
 
     /**
      * Set the filter set owning this transformer.

@@ -21,7 +21,7 @@ class LikeFilter extends AbstractFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, $field, $value)
+    public function filter(&$query, &$filters, $field, $value)
     {
         // $value = preg_quote($value, '/');
         $value = new \MongoDB\BSON\Regex($value, 'i');
