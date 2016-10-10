@@ -19,13 +19,15 @@ class LikeFilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, &$filters, $field, $value)
+    public function generateStatement(&$query, &$filters, $field, $value)
     {
         $param = $this->generateParameterName();
         $field = $this->resolveFieldAlias($query, $field);
+        $value = sprintf('%%%s%%', preg_quote($value, '%'));
 
-        $query
-            ->andWhere(sprintf('%s LIKE :%s', $field, $param))
-            ->setParameter($param, sprintf('%%%s%%', preg_quote($value, '%')));
+        return [
+            'query'      => [sprintf('%s LIKE :%s', $field, $param)],
+            'parameters' => [$param => $value],
+        ];
     }
 }

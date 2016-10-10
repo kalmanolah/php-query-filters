@@ -18,6 +18,7 @@ Currently supported are:
   * EQ/NE filters
   * NULL/NOT NULL filters
   * LIKE filters
+  * OR filters
   * DateTime transformer
 
 * MongoDB array-based queries:
@@ -63,6 +64,7 @@ $filterSet = (new FilterSet())
     ->registerFilter(new DoctrineORMFilter\LessThanOrEqualToFilter())
     ->registerFilter(new DoctrineORMFilter\NullFilter())
     ->registerFilter(new DoctrineORMFilter\NotNullFilter())
+    ->registerFilter(new DoctrineORMFilter\OrFilter())
     // Register transformers
     ->registerTransformer(new Transformer\FloatTransformer())
     ->registerTransformer(new Transformer\IntegerTransformer())
@@ -76,6 +78,7 @@ $qb = $entityManager->createQueryBuilder()
 // Get some filters from somewhere (generally your REST API GET params)
 // eg: GET /api/users?filter[]=foo,bar&filter[]=bar,baz
 $filters = [
+    '*,or 1,2,3',                  // Wrap filters with index 1, 2 and 3 in OR statement
     'profile.firstName,eq John',   // LEFT JOIN u.profile p, WHERE p.firstName = 'John'
     'username,like adm',           // WHERE u.username LIKE '%adm%'
     'enabled,true',                // WHERE u.enabled = TRUE

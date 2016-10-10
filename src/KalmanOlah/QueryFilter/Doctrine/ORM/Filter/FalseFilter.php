@@ -19,9 +19,13 @@ class FalseFilter extends AbstractDoctrineORMFilter
     /**
      * {@inheritDoc}
      */
-    public function filter(&$query, &$filters, $field, $value)
+    public function generateStatement(&$query, &$filters, $field, $value)
     {
         $field = $this->resolveFieldAlias($query, $field);
-        $query->andWhere(sprintf('%s = FALSE', $field));
+
+        return [
+            'query'      => [sprintf('%s = FALSE', $field)],
+            'parameters' => [],
+        ];
     }
 }

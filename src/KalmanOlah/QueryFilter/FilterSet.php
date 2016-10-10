@@ -118,6 +118,37 @@ class FilterSet
         return $this;
     }
 
+
+    /**
+     * Get a filter by ID.
+     *
+     * @param  string $id ID of filter to get.
+     * @return FilterInterface
+     */
+    public function getFilterById($id)
+    {
+        if (!isset($this->filters[$id])) {
+            throw new InvalidFilterException(sprintf('The filter with ID "%s" could not be found', $id));
+        }
+
+        return $this->filters[$id];
+    }
+
+    /**
+     * Get a transformer by ID.
+     *
+     * @param  string $id ID of transformer to get.
+     * @return TransformerInterface
+     */
+    public function getTransformerById($id)
+    {
+        if (!isset($this->transformers[$id])) {
+            throw new InvalidFilterException(sprintf('The transformer with ID "%s" could not be found', $id));
+        }
+
+        return $this->transformers[$id];
+    }
+
     /**
      * Attempt to parse the given array of filter strings, splitting the
      * strings into fields, values, filter identifiers and optional
@@ -164,35 +195,5 @@ class FilterSet
             'field'       => $field,
             'raw'         => $filter,
         ];
-    }
-
-    /**
-     * Get a filter by ID.
-     *
-     * @param  string $id ID of filter to get.
-     * @return FilterInterface
-     */
-    protected function getFilterById($id)
-    {
-        if (!isset($this->filters[$id])) {
-            throw new InvalidFilterException(sprintf('The filter with ID "%s" could not be found', $id));
-        }
-
-        return $this->filters[$id];
-    }
-
-    /**
-     * Get a transformer by ID.
-     *
-     * @param  string $id ID of transformer to get.
-     * @return TransformerInterface
-     */
-    protected function getTransformerById($id)
-    {
-        if (!isset($this->transformers[$id])) {
-            throw new InvalidFilterException(sprintf('The transformer with ID "%s" could not be found', $id));
-        }
-
-        return $this->transformers[$id];
     }
 }

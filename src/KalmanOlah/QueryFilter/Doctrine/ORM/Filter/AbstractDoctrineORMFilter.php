@@ -12,8 +12,24 @@ use KalmanOlah\QueryFilter\Exception\InvalidFilterException;
  * @author Kalman Olah <hello+php-qf@kalmanolah.net>
  * @license MIT
  */
-abstract class AbstractDoctrineORMFilter extends AbstractFilter
+abstract class AbstractDoctrineORMFilter extends AbstractFilter implements DoctrineORMFilterInterface
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(&$query, &$filters, $field, $value)
+    {
+        $statement = $this->generateStatement($query, $filters, $field, $value);
+
+        foreach ($statement['query'] as $queryPart) {
+            $query->andWhere(sprintf('(%s)', $queryPart));
+        }
+
+        foreach ($statement['parameters'] as $key => $value) {
+            $query->setParameter($key, $value);
+        }
+    }
+
     /**
      * Resolve a field string to an actual alias for a
      * field usable in the given query.
